@@ -45,7 +45,7 @@ export default {
   name: 'CreateRoom',
   data () {
     return {
-        roomName: ""
+      roomName: ''
     }
   }
 }
