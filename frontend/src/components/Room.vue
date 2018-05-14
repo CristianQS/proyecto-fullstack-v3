@@ -6,14 +6,13 @@
     <main class="grid-wrapper" id="container">
         <div id="demoContainer">
             <div id="connectControls">
-                <button class="waves-effect waves-light btn" id="connectButton" onclick="connect()">Conectarse a Sala</button>
-                <button class="waves-effect waves-light btn" id="hangupButton" disabled="disabled" onclick="hangup()">Salir de la Sala</button>
-                <div id="iam">No Conectado</div>
-                <h2>Fuentes de Video</h2>
+                <!-- <button class="waves-effect waves-light btn" id="connectButton" onclick="connect()">Conectarse a Sala</button> -->
+                <!-- <button class="waves-effect waves-light btn" id="hangupButton" disabled="disabled" onclick="hangup()">Salir de la Sala</button> -->
+                <!-- <h2>Fuentes de Video</h2> -->
                 <div id="videoSrcBlk">
                 </div>
                 <br />
-                <strong>Usuarios Conectados</strong>
+                <!-- <strong>Usuarios Conectados</strong> -->
                 <div id="otherClients"></div>
             </div>
 

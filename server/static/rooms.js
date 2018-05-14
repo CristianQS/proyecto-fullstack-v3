@@ -101,7 +101,6 @@ function initial() {
       },
       streamName)
   }
-  document.getElementById('iam').innerHTML = 'I am '
 }
 
 function hangup() {
@@ -169,7 +168,6 @@ function performCall(targetEasyrtcId) {
 }
 
 function loginSuccess() {
-  document.getElementById('iam').innerHTML = 'I am ' + localStorage.getItem('room')
   var url = window.location.href
   var index = url.lastIndexOf("/")
   var newUrl = url.substring(index + 1)
@@ -190,7 +188,6 @@ function loginFailure(errorCode, message) {
 }
 
 function disconnect() {
-  document.getElementById('iam').innerHTML = 'logged out'
   easyrtc.disconnect()
   enable('connectButton')
   //    disable("disconnectButton");
