@@ -1,8 +1,10 @@
 var selfEasyrtcid = ''
 var haveSelfVideo = false
 var otherEasyrtcid = null
+var participantes = []
+var nameRooms = []
 
-function createLabelledButton (buttonLabel) {
+function createLabelledButton(buttonLabel) {
   var button = document.createElement('button')
   button.setAttribute('class', 'waves-effect waves-light btn')
   button.appendChild(document.createTextNode(buttonLabel))
@@ -10,7 +12,7 @@ function createLabelledButton (buttonLabel) {
   return button
 }
 
-function addMediaStreamToDiv (divId, stream, streamName, isLocal) {
+function addMediaStreamToDiv(divId, stream, streamName, isLocal) {
   var container = document.createElement('div')
   container.style.marginBottom = '10px'
   var formattedName = streamName.replace('(', '<br>').replace(')', '')
@@ -31,7 +33,7 @@ function addMediaStreamToDiv (divId, stream, streamName, isLocal) {
   return labelBlock
 }
 
-function addMediaStreamToDivLocal (divId, stream, streamName, isLocal) {
+function addMediaStreamToDivLocal(divId, stream, streamName, isLocal) {
   var container = document.createElement('div')
   container.style.marginBottom = '10px'
   var formattedName = streamName.replace('(', '<br>').replace(')', '')
@@ -52,7 +54,7 @@ function addMediaStreamToDivLocal (divId, stream, streamName, isLocal) {
   return labelBlock
 }
 
-function createLocalVideo (stream, streamName) {
+function createLocalVideo(stream, streamName) {
   var labelBlock = addMediaStreamToDivLocal('localVideos', stream, streamName, true)
   var closeButton = createLabelledButton('close')
   closeButton.onclick = function () {
@@ -62,37 +64,22 @@ function createLocalVideo (stream, streamName) {
   labelBlock.appendChild(closeButton)
 }
 
-function addSrcButton (buttonLabel, videoId) {
-  var button = createLabelledButton(buttonLabel)
-  button.onclick = function () {
-    easyrtc.setVideoSource(videoId)
-    easyrtc.initMediaSource(
-      function (stream) {
-        createLocalVideo(stream, buttonLabel)
-        if (otherEasyrtcid) {
-          easyrtc.addStreamToCall(otherEasyrtcid, buttonLabel)
-        }
-      },
-      function (errCode, errText) {
-        easyrtc.showError(errCode, errText)
-      }, buttonLabel)
-  }
-}
 
-function initial () {
-  console.log('Initializing.')
-  easyrtc.setRoomOccupantListener(convertListToButtons)
+function initial() {
+
+  //easyrtc.joinRoom(window.location.href,()=>{},()=>{},()=>{})
+  easyrtc.currentRute = window.location.href
+  participantes.push(easyrtc)
+
+  
   easyrtc.connect('easyrtc.multistream', loginSuccess, loginFailure)
+  easyrtc.setRoomOccupantListener(convertListToButtons)
+
+
+  console.log(easyrtc)
+  console.log("rooms joined" + easyrtc.getRoomsJoined())
   easyrtc.setAutoInitUserMedia(false)
 
-  easyrtc.getVideoSourceList(function (videoSrcList) {
-    for (var i = 0; i < videoSrcList.length; i++) {
-      var videoEle = videoSrcList[i]
-      var videoLabel = (videoSrcList[i].label && videoSrcList[i].label.length > 0)
-        ? (videoSrcList[i].label) : ('src_' + i)
-      addSrcButton(videoLabel, videoSrcList[i].deviceId)
-    }
-  })
   //
   // add an extra button for screen sharing
   //
@@ -117,37 +104,49 @@ function initial () {
   document.getElementById('iam').innerHTML = 'I am '
 }
 
-function hangup () {
+function hangup() {
   easyrtc.hangupAll()
   disable('hangupButton')
 }
 
-function clearConnectList () {
+function clearConnectList() {
   var otherClientDiv = document.getElementById('otherClients')
   while (otherClientDiv.hasChildNodes()) {
     otherClientDiv.removeChild(otherClientDiv.lastChild)
   }
 }
 
-function convertListToButtons (roomName, occupants, isPrimary) {
+function convertListToButtons(roomName, occupants, isPrimary) {
+  console.log("esta es lña room " + roomName)
+  console.log("ocupantes " + occupants)
+  if(roomName!= "default"){
+  var url = window.location.href
+  var index = url.lastIndexOf("/")
+  var newUrl = url.substring(index + 1)
+
+
   clearConnectList()
   var otherClientDiv = document.getElementById('otherClients')
   for (var easyrtcid in occupants) {
-    var button = document.createElement('button')
-    button.onclick = (function (easyrtcid) {
-      return function () {
-        performCall(easyrtcid)
-            };
-    }(easyrtcid))
+    console.log(roomName + "     " + newUrl + "dasudhasduhas")
 
-    var label = document.createTextNode('Conectar con ' + easyrtc.idToName(easyrtcid))
-    button.appendChild(label)
-    button.setAttribute('class', 'waves-effect waves-light btn')
-    otherClientDiv.appendChild(button)
+      console.log("machupichu " + easyrtcid)
+      var button = document.createElement('button')
+      button.onclick = (function (easyrtcid) {
+        return function () {
+          performCall(easyrtcid)
+        };
+      }(easyrtcid))
+
+      var label = document.createTextNode('Conectar con ' + easyrtc.idToName(easyrtcid))
+      button.appendChild(label)
+      button.setAttribute('class', 'waves-effect waves-light btn')
+      otherClientDiv.appendChild(button)
+    }
   }
 }
 
-function performCall (targetEasyrtcId) {
+function performCall(targetEasyrtcId) {
   var acceptedCB = function (accepted, easyrtcid) {
     if (!accepted) {
       easyrtc.showError('CALL-REJECTED', 'Sorry, your call to ' + easyrtc.idToName(easyrtcid) + ' was rejected')
@@ -169,15 +168,28 @@ function performCall (targetEasyrtcId) {
   enable('hangupButton')
 }
 
-function loginSuccess () {
+function loginSuccess() {
   document.getElementById('iam').innerHTML = 'I am ' + localStorage.getItem('room')
+  var url = window.location.href
+  var index = url.lastIndexOf("/")
+  var newUrl = url.substring(index + 1)
+  console.log(newUrl)
+  easyrtc.joinRoom(newUrl, "",
+    function (success) {
+      console.log("esto es success " + success)
+
+      /* we'll geta room entry event for the room we were actually added to */
+    },
+    function (errorCode, errorText, roomName) {
+      easyrtc.showError(errorCode, errorText + ": room name was(" + roomName + ")");
+    });
 }
 
-function loginFailure (errorCode, message) {
+function loginFailure(errorCode, message) {
   easyrtc.showError(errorCode, message)
 }
 
-function disconnect () {
+function disconnect() {
   document.getElementById('iam').innerHTML = 'logged out'
   easyrtc.disconnect()
   enable('connectButton')
