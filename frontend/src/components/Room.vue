@@ -8,21 +8,17 @@
             <div id="connectControls">
                 <!-- <button class="waves-effect waves-light btn" id="connectButton" onclick="connect()">Conectarse a Sala</button> -->
                 <!-- <button class="waves-effect waves-light btn" id="hangupButton" disabled="disabled" onclick="hangup()">Salir de la Sala</button> -->
-                <!-- <h2>Fuentes de Video</h2> -->
                 <div id="videoSrcBlk">
                 </div>
                 <br />
-                <!-- <strong>Usuarios Conectados</strong> -->
                 <div id="otherClients"></div>
             </div>
 
             <section id="videos">
                 <div>
-                    <h2>Streams Remoto</h2>
                     <div autoplay="autoplay" id="remoteVideos"></div>
                 </div>
                 <div>
-                    <h2>Streaming Local</h2>
                     <div autoplay="autoplay" id="localVideos">
                     </div>
                 </div>
@@ -82,6 +78,9 @@ video {
   background-color: white;
 }
 
+/* .ocultar {
+  display: none;
+} */
 /* GRID */
 
 .grid-wrapper,

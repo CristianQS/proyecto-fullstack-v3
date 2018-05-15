@@ -79,7 +79,7 @@ function initial() {
   console.log(easyrtc)
   console.log("rooms joined" + easyrtc.getRoomsJoined())
   easyrtc.setAutoInitUserMedia(false)
-
+  $('.ocultar').click();
   //
   // add an extra button for screen sharing
   //
@@ -105,7 +105,7 @@ function initial() {
 
 function hangup() {
   easyrtc.hangupAll()
-  disable('hangupButton')
+  //disable('hangupButton')
 }
 
 function clearConnectList() {
@@ -116,8 +116,6 @@ function clearConnectList() {
 }
 
 function convertListToButtons(roomName, occupants, isPrimary) {
-  console.log("esta es lña room " + roomName)
-  console.log("ocupantes " + occupants)
   if(roomName!= "default"){
   var url = window.location.href
   var index = url.lastIndexOf("/")
@@ -127,9 +125,7 @@ function convertListToButtons(roomName, occupants, isPrimary) {
   clearConnectList()
   var otherClientDiv = document.getElementById('otherClients')
   for (var easyrtcid in occupants) {
-    console.log(roomName + "     " + newUrl + "dasudhasduhas")
 
-      console.log("machupichu " + easyrtcid)
       var button = document.createElement('button')
       button.onclick = (function (easyrtcid) {
         return function () {
@@ -139,7 +135,7 @@ function convertListToButtons(roomName, occupants, isPrimary) {
 
       var label = document.createTextNode('Conectar con ' + easyrtc.idToName(easyrtcid))
       button.appendChild(label)
-      button.setAttribute('class', 'waves-effect waves-light btn')
+      button.setAttribute('class', 'waves-effect waves-light btn ocultar')
       otherClientDiv.appendChild(button)
     }
   }
@@ -156,7 +152,7 @@ function performCall(targetEasyrtcId) {
   }
 
   var successCB = function () {
-    enable('hangupButton')
+    //enable('hangupButton')
   }
   var failureCB = function () {
     enable('otherClients')
@@ -164,7 +160,7 @@ function performCall(targetEasyrtcId) {
   var keys = easyrtc.getLocalMediaIds()
 
   easyrtc.call(targetEasyrtcId, successCB, failureCB, acceptedCB, keys)
-  enable('hangupButton')
+  //enable('hangupButton')
 }
 
 function loginSuccess() {
@@ -189,7 +185,7 @@ function loginFailure(errorCode, message) {
 
 function disconnect() {
   easyrtc.disconnect()
-  enable('connectButton')
+  //enable('connectButton')
   //    disable("disconnectButton");
   clearConnectList()
   easyrtc.setVideoObjectSrc(document.getElementById('selfVideo'), '')
