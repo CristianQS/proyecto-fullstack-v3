@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Nav enlace="http://res.cloudinary.com/faus6rguez/image/upload/v1526487699/logo_ympqbb.png" alinear="left"/>
-    <div class="row">
+    <Nav enlace="http://res.cloudinary.com/faus6rguez/image/upload/v1526487699/logo_ympqbb.png"/>
+    <main class="row">
         <div class="grid col s12 bigimage wrapper ">
             <div class="grid__main ">
                 <h1 class="col s6 " >Nacho es un Tolete</h1>
@@ -21,7 +21,7 @@
 
             </div>
         </div>
-    </div>
+    </main>
   </div>
 </template>
 
@@ -66,10 +66,10 @@ p{
     justify-content: center;
 }
 
-</style>
-
-<style>
-    nav.wrapper-grid a {
-        text-align: left;
-    }
+nav.wrapper-grid a {
+    text-align: left;
+}
+main {
+    margin-top: 20vh;
+}
 </style>

@@ -21,11 +21,7 @@ function addMediaStreamToDiv(divId, stream, streamName, isLocal) {
   // labelBlock.style.width = '220px'
   // labelBlock.style.cssFloat = 'left'
   // labelBlock.innerHTML = '<pre>' + formattedName + '</pre><br>'
-<<<<<<< HEAD
   // container.appendChild(labelBlock)
-=======
-  container.appendChild(labelBlock)
->>>>>>> 3a7d05d9af430a410b8d6f85da1afddb0a81bda7
   var video = document.createElement('video')
   video.width = 340
   video.height = 180
@@ -40,13 +36,8 @@ function addMediaStreamToDiv(divId, stream, streamName, isLocal) {
 
 function addMediaStreamToDivLocal(divId, stream, streamName, isLocal) {
   var container = document.createElement('div')
-<<<<<<< HEAD
-  // container.style.marginBottom = '10px'
-  var formattedName = streamName.replace('(', '<br>').replace(')', '')
-=======
   container.style.marginBottom = '10px'
   // var formattedName = streamName.replace('(', '<br>').replace(')', '')
->>>>>>> 3a7d05d9af430a410b8d6f85da1afddb0a81bda7
   var labelBlock = document.createElement('div')
   // labelBlock.style.width = '220px'
   // labelBlock.style.cssFloat = 'left'

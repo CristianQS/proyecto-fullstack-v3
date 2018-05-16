@@ -103,9 +103,7 @@ video {
 #localVideos video {
   border-radius: 0;
 }
-</style>
 
-<style>
     nav.wrapper-grid a {
         text-align: center;
     }
