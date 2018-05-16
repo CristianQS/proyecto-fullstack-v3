@@ -6,6 +6,7 @@ var socketIo = require("socket.io");        // web socket external module
 var easyrtc = require("easyrtc");               // EasyRTC external module
 const path = require('path');
 
+var https = require('https');
 
 // Set process name
 process.title = "node-easyrtc";
@@ -22,9 +23,11 @@ app.use(serveStatic(__dirname + "/static"));
 
 // Start Express http server on port 8080
 var webServer = http.createServer(app);
+//var webServerHttps = https.createServer(credentials,app);
 
 // Start Socket.io so it attaches itself to Express server
 var socketServer = socketIo.listen(webServer, {"log level":1});
+//var socketServer = socketIo.listen(webServerHttps, {"log level":1});
 
 easyrtc.setOption("logLevel", "debug");
 
@@ -65,3 +68,7 @@ var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
 webServer.listen(8080, function () {
     console.log('listening on http://localhost:8080');
 });
+
+//webServerHttps.listen(8443, function () {
+//    console.log('listening on https://localhost:8443');
+// });

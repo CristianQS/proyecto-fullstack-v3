@@ -1,25 +1,23 @@
 <template>
   <div>
-      <nav>
-        <img src="./pictures/logo.png" alt="NetShared-Logo">
-    </nav>
-    <main class="grid-wrapper" id="container">
-        <div id="demoContainer">
-            <div id="connectControls">
-                <!-- <button class="waves-effect waves-light btn" id="connectButton" onclick="connect()">Conectarse a Sala</button> -->
-                <!-- <button class="waves-effect waves-light btn" id="hangupButton" disabled="disabled" onclick="hangup()">Salir de la Sala</button> -->
-                <div id="videoSrcBlk">
+     <Nav enlace="http://res.cloudinary.com/faus6rguez/image/upload/v1526487699/mainlogo_csze1j.png"/>
+    <main class='grid-wrapper' id='container'>
+        <div id='demoContainer'>
+            <div id='connectControls'>
+                <!-- <button class='waves-effect waves-light btn' id='connectButton' onclick='connect()'>Conectarse a Sala</button> -->
+                <!-- <button class='waves-effect waves-light btn' id='hangupButton' disabled='disabled' onclick='hangup()'>Salir de la Sala</button> -->
+                <div id='videoSrcBlk'>
                 </div>
                 <br />
-                <div id="otherClients"></div>
+                <div id='otherClients'></div>
             </div>
 
-            <section id="videos">
+            <section id='videos'>
                 <div>
-                    <div autoplay="autoplay" id="remoteVideos"></div>
+                    <div autoplay='autoplay' id='remoteVideos'></div>
                 </div>
                 <div>
-                    <div autoplay="autoplay" id="localVideos">
+                    <div autoplay='autoplay' id='localVideos'>
                     </div>
                 </div>
             </section>
@@ -29,14 +27,16 @@
 </template>
 
 <script>
+import Nav from './nav'
 export default {
   created () {
     let recaptchaScript = document.createElement('script')
-    recaptchaScript.setAttribute(
-      'src',
-      './rooms.js'
-    )
+    recaptchaScript.setAttribute('src', './rooms.js')
     document.head.appendChild(recaptchaScript)
+  },
+
+  components: {
+    Nav
   }
 }
 </script>
@@ -48,25 +48,11 @@ export default {
 
 /* ETIQUETAS */
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: 14px;
-}
-
-body {
-  background-image: url("./pictures/wallpaper2.jpg");
-  background-size: cover;
-}
-
 nav {
   height: 100px;
   margin-bottom: 50px;
   background-color: white;
+  text-align: center;
 }
 
 h2 {
@@ -84,7 +70,6 @@ video {
 /* GRID */
 
 .grid-wrapper,
-#videos,
 #remoteVideos {
   display: grid;
 }
@@ -97,17 +82,13 @@ video {
   grid-column: 2;
 }
 
-#videos {
-  grid-template-columns: 65% 35%;
-}
-
 #remoteVideos {
-  grid-template-columns: var(--four-cols);
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
 }
 
-#localVideos > div,
 #remoteVideos > div {
   overflow: hidden;
+  text-align: center;
 }
 
 /* STYLE */
@@ -122,4 +103,15 @@ video {
 #localVideos video {
   border-radius: 0;
 }
+</style>
+
+<style>
+    nav.wrapper-grid a {
+        text-align: center;
+    }
+
+    nav.wrapper-grid img {
+      height: 4.9rem;
+    }
+
 </style>

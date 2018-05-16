@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html {
+    font-size: 14px;
+  }
+  
+  body {
+    /* background-image: url('./src/components/pictures/wallpaper2.jpg');*/
+    background-color: red;
+    background-size: cover;
+  }
