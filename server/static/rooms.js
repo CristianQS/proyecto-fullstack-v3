@@ -3,6 +3,7 @@ var haveSelfVideo = false
 var otherEasyrtcid = null
 var participantes = []
 var num = 0
+var admin = {}
 
 function createLabelledButton(buttonLabel) {
   var button = document.createElement('button')
@@ -100,14 +101,13 @@ function convertListToButtons(roomName, occupants, isPrimary) {
       participantes.push(easyrtcid)
       // performCall(easyrtcid)
     }
-
-      console.log("esto es joint time ", easyrtc)
+    console.log("admin ", admin.easyrtcid)
+    console.log("primary ", isPrimary.easyrtcid)
     // console.log("esto es is primary" , isPrimary)
+    if(admin.easyrtcid == isPrimary.easyrtcid){
       var button = document.createElement('button')
       button.onclick = (function () {
-        console.log("esta entrando y con " , participantes)
           participantes.forEach(easyrtcid=>{
-            console.log("esta entrando y con " + easyrtcid)
             performCall(easyrtcid)
           })})
 
@@ -115,6 +115,7 @@ function convertListToButtons(roomName, occupants, isPrimary) {
       button.appendChild(label)
       button.setAttribute('class', 'waves-effect waves-light btn ocultar')
       otherClientDiv.appendChild(button)
+      }  
       //participantes = []
   }
 }
@@ -157,9 +158,10 @@ function loginSuccess() {
   var url = window.location.href
   var index = url.lastIndexOf("/")
   var newUrl = url.substring(index + 1)
-  easyrtc.joinRoom(newUrl, "",
+  easyrtc.joinRoom(newUrl, easyrtc.idToName(easyrtc.myEasyrtcid),
     function (success) {
-
+      
+      admin = Object.values(easyrtc.roomJoin.default.clientList)[0]
       easyrtc.setRoomOccupantListener(convertListToButtons)
       easyrtc.setAutoInitUserMedia(false)
       //
@@ -200,11 +202,6 @@ function loginSuccess() {
             streamName)
         }
       }
-      
-
-
-
-
     },
     function (errorCode, errorText, roomName) {
       easyrtc.showError(errorCode, errorText + ": room name was(" + roomName + ")");
