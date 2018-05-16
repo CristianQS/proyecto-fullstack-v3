@@ -2,7 +2,8 @@ var selfEasyrtcid = ''
 var haveSelfVideo = false
 var otherEasyrtcid = null
 var participantes = []
-var nameRooms = []
+var num = 0
+var admin = {}
 
 function createLabelledButton(buttonLabel) {
   var button = document.createElement('button')
@@ -15,12 +16,16 @@ function createLabelledButton(buttonLabel) {
 function addMediaStreamToDiv(divId, stream, streamName, isLocal) {
   var container = document.createElement('div')
   container.style.marginBottom = '10px'
-  var formattedName = streamName.replace('(', '<br>').replace(')', '')
+  // var formattedName = streamName.replace('(', '<br>').replace(')', '')
   var labelBlock = document.createElement('div')
   // labelBlock.style.width = '220px'
   // labelBlock.style.cssFloat = 'left'
   // labelBlock.innerHTML = '<pre>' + formattedName + '</pre><br>'
+<<<<<<< HEAD
   // container.appendChild(labelBlock)
+=======
+  container.appendChild(labelBlock)
+>>>>>>> 3a7d05d9af430a410b8d6f85da1afddb0a81bda7
   var video = document.createElement('video')
   video.width = 340
   video.height = 180
@@ -35,12 +40,17 @@ function addMediaStreamToDiv(divId, stream, streamName, isLocal) {
 
 function addMediaStreamToDivLocal(divId, stream, streamName, isLocal) {
   var container = document.createElement('div')
+<<<<<<< HEAD
   // container.style.marginBottom = '10px'
   var formattedName = streamName.replace('(', '<br>').replace(')', '')
+=======
+  container.style.marginBottom = '10px'
+  // var formattedName = streamName.replace('(', '<br>').replace(')', '')
+>>>>>>> 3a7d05d9af430a410b8d6f85da1afddb0a81bda7
   var labelBlock = document.createElement('div')
-  labelBlock.style.width = '220px'
-  labelBlock.style.cssFloat = 'left'
-  labelBlock.innerHTML = '<pre>' + formattedName + '</pre><br>'
+  // labelBlock.style.width = '220px'
+  // labelBlock.style.cssFloat = 'left'
+  // labelBlock.innerHTML = '<pre>' + formattedName + '</pre><br>'
   container.appendChild(labelBlock)
   var video = document.createElement('video')
   video.width = 350
@@ -68,45 +78,16 @@ function createLocalVideo(stream, streamName) {
 function initial() {
 
   //easyrtc.joinRoom(window.location.href,()=>{},()=>{},()=>{})
-  easyrtc.currentRute = window.location.href
-  participantes.push(easyrtc)
-
-  
   easyrtc.connect('easyrtc.multistream', loginSuccess, loginFailure)
-  easyrtc.setRoomOccupantListener(convertListToButtons)
 
-
-  console.log(easyrtc)
-  console.log("rooms joined" + easyrtc.getRoomsJoined())
-  easyrtc.setAutoInitUserMedia(false)
-  $('.ocultar').click();
-  //
-  // add an extra button for screen sharing
-  //
-  var screenShareButton = createLabelledButton('Desktop capture/share')
-  var numScreens = 0
-
-  screenShareButton.onclick = function () {
-    numScreens++
-    var streamName = 'screen' + numScreens
-    easyrtc.initDesktopStream(
-      function (stream) {
-        createLocalVideo(stream, streamName)
-        if (otherEasyrtcid) {
-          easyrtc.addStreamToCall(otherEasyrtcid, streamName)
-        }
-      },
-      function (errCode, errText) {
-        easyrtc.showError(errCode, errText)
-      },
-      streamName)
-  }
 }
 
-function hangup() {
-  easyrtc.hangupAll()
-  //disable('hangupButton')
-}
+
+
+// function hangup() {
+//   easyrtc.hangupAll()
+//disable('hangupButton')
+// }
 
 function clearConnectList() {
   var otherClientDiv = document.getElementById('otherClients')
@@ -116,38 +97,57 @@ function clearConnectList() {
 }
 
 function convertListToButtons(roomName, occupants, isPrimary) {
-  if(roomName!= "default"){
-  var url = window.location.href
-  var index = url.lastIndexOf("/")
-  var newUrl = url.substring(index + 1)
+  if (roomName != "default") {
+    var url = window.location.href
+    var index = url.lastIndexOf("/")
+    var newUrl = url.substring(index + 1)
+    console.log("estos son los ocupantes " + occupants)
 
-
-  clearConnectList()
-  var otherClientDiv = document.getElementById('otherClients')
-  for (var easyrtcid in occupants) {
-
+    clearConnectList()
+    var otherClientDiv = document.getElementById('otherClients')
+    for (var easyrtcid in occupants) {
+      console.log("esto es easyrtcid " + easyrtcid)
+      participantes.push(easyrtcid)
+      // performCall(easyrtcid)
+    }
+    console.log("admin ", admin.easyrtcid)
+    console.log("primary ", isPrimary.easyrtcid)
+    // console.log("esto es is primary" , isPrimary)
+    if(admin.easyrtcid == isPrimary.easyrtcid){
       var button = document.createElement('button')
-      button.onclick = (function (easyrtcid) {
-        return function () {
-          performCall(easyrtcid)
-        };
-      }(easyrtcid))
+      button.onclick = (function () {
+          participantes.forEach(easyrtcid=>{
+            performCall(easyrtcid)
+          })})
 
-      var label = document.createTextNode('Conectar con ' + easyrtc.idToName(easyrtcid))
+      var label = document.createTextNode('Conectar con todos')
       button.appendChild(label)
       button.setAttribute('class', 'waves-effect waves-light btn ocultar')
       otherClientDiv.appendChild(button)
-    }
+      }  
+      //participantes = []
   }
 }
 
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 10; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
+
 function performCall(targetEasyrtcId) {
+  otherEasyrtcid = targetEasyrtcId
   var acceptedCB = function (accepted, easyrtcid) {
+    console.log("esto es accept " + accepted)
     if (!accepted) {
-      easyrtc.showError('CALL-REJECTED', 'Sorry, your call to ' + easyrtc.idToName(easyrtcid) + ' was rejected')
+      // easyrtc.showError('CALL-REJECTED', 'Sorry, your call to ' + easyrtc.idToName(easyrtcid) + ' was rejected')
       enable('otherClients')
     } else {
-      otherEasyrtcid = targetEasyrtcId
+      console.log("hacen la llamada")
     }
   }
 
@@ -155,11 +155,11 @@ function performCall(targetEasyrtcId) {
     //enable('hangupButton')
   }
   var failureCB = function () {
-    enable('otherClients')
+    //enable('otherClients')
   }
   var keys = easyrtc.getLocalMediaIds()
 
-  easyrtc.call(targetEasyrtcId, successCB, failureCB, acceptedCB, keys)
+  easyrtc.call(otherEasyrtcid, successCB, failureCB, acceptedCB, keys)
   //enable('hangupButton')
 }
 
@@ -167,12 +167,50 @@ function loginSuccess() {
   var url = window.location.href
   var index = url.lastIndexOf("/")
   var newUrl = url.substring(index + 1)
-  console.log(newUrl)
-  easyrtc.joinRoom(newUrl, "",
+  easyrtc.joinRoom(newUrl, easyrtc.idToName(easyrtc.myEasyrtcid),
     function (success) {
-      console.log("esto es success " + success)
-
-      /* we'll geta room entry event for the room we were actually added to */
+      
+      admin = Object.values(easyrtc.roomJoin.default.clientList)[0]
+      easyrtc.setRoomOccupantListener(convertListToButtons)
+      easyrtc.setAutoInitUserMedia(false)
+      //
+      // add an extra button for screen sharing
+      //
+      if(otherEasyrtcid){
+        var screenShareButton = createLabelledButton('Desktop capture/share')
+        screenShareButton.onclick = function () {
+          var streamName = makeid()
+          easyrtc.initDesktopStream(
+            function (stream) {
+              createLocalVideo(stream, streamName)
+              console.log("otro stream " + otherEasyrtcid)
+              if (otherEasyrtcid) {
+                easyrtc.addStreamToCall(otherEasyrtcid, streamName)
+              }
+            },
+            function (errCode, errText) {
+              easyrtc.showError(errCode, errText)
+            },
+            streamName)
+        }
+      }else{
+        var screenShareButton = createLabelledButton('Desktop capture/share')
+        screenShareButton.onclick = function () {
+          var streamName = makeid()
+          easyrtc.initDesktopStream(
+            function (stream) {
+              createLocalVideo(stream, streamName)
+              console.log("otro stream " + easyrtc.myEasyrtcid)
+              if (easyrtc.myEasyrtcid) {
+                easyrtc.addStreamToCall(easyrtc.myEasyrtcid, streamName)
+              }
+            },
+            function (errCode, errText) {
+              easyrtc.showError(errCode, errText)
+            },
+            streamName)
+        }
+      }
     },
     function (errorCode, errorText, roomName) {
       easyrtc.showError(errorCode, errorText + ": room name was(" + roomName + ")");
@@ -195,6 +233,7 @@ easyrtc.setStreamAcceptor(function (easyrtcid, stream, streamName) {
   var labelBlock = addMediaStreamToDiv('remoteVideos', stream, streamName, false)
   labelBlock.parentNode.id = 'remoteBlock' + easyrtcid + streamName
 })
+
 
 easyrtc.setOnStreamClosed(function (easyrtcid, stream, streamName) {
   var item = document.getElementById('remoteBlock' + easyrtcid + streamName)
