@@ -137,7 +137,7 @@ function convertListToButtons (roomName, occupants, isPrimary) {
     button.onclick = (function (easyrtcid) {
       return function () {
         performCall(easyrtcid)
-            };
+      }
     }(easyrtcid))
 
     var label = document.createTextNode('Conectar con ' + easyrtc.idToName(easyrtcid))

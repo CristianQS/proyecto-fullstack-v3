@@ -23,8 +23,8 @@ function addMediaStreamToDiv(divId, stream, streamName, isLocal) {
   // labelBlock.innerHTML = '<pre>' + formattedName + '</pre><br>'
   container.appendChild(labelBlock)
   var video = document.createElement('video')
-  video.width = 100
-  video.height = 100
+  video.width = 350
+  video.height = 200
   video.muted = isLocal
   video.style.verticalAlign = 'middle'
   container.appendChild(video)
@@ -44,8 +44,8 @@ function addMediaStreamToDivLocal(divId, stream, streamName, isLocal) {
   // labelBlock.innerHTML = '<pre>' + formattedName + '</pre><br>'
   container.appendChild(labelBlock)
   var video = document.createElement('video')
-  video.width = 350
-  video.height = 200
+  video.width = 800
+  video.height = 600
   video.muted = isLocal
   video.style.verticalAlign = 'middle'
   container.appendChild(video)
@@ -92,18 +92,12 @@ function convertListToButtons(roomName, occupants, isPrimary) {
     var url = window.location.href
     var index = url.lastIndexOf("/")
     var newUrl = url.substring(index + 1)
-    console.log("estos son los ocupantes " + occupants)
 
     clearConnectList()
     var otherClientDiv = document.getElementById('otherClients')
     for (var easyrtcid in occupants) {
-      console.log("esto es easyrtcid " + easyrtcid)
       participantes.push(easyrtcid)
-      // performCall(easyrtcid)
     }
-    console.log("admin ", admin.easyrtcid)
-    console.log("primary ", isPrimary.easyrtcid)
-    // console.log("esto es is primary" , isPrimary)
     if(admin.easyrtcid == isPrimary.easyrtcid){
       var button = document.createElement('button')
       button.onclick = (function () {
@@ -116,7 +110,6 @@ function convertListToButtons(roomName, occupants, isPrimary) {
       button.setAttribute('class', 'waves-effect waves-light btn ocultar')
       otherClientDiv.appendChild(button)
       }  
-      //participantes = []
   }
 }
 
@@ -223,6 +216,7 @@ function disconnect() {
 easyrtc.setStreamAcceptor(function (easyrtcid, stream, streamName) {
   var labelBlock = addMediaStreamToDiv('remoteVideos', stream, streamName, false)
   labelBlock.parentNode.id = 'remoteBlock' + easyrtcid + streamName
+  //labelBlock.parentNode.className = 'grid__main wrapper'
 })
 
 

@@ -16,10 +16,14 @@
 
             <section id="videos">
                 <div>
-                    <div autoplay="autoplay" id="remoteVideos"></div>
+                    <div autoplay="autoplay" class="grid">
+                      <div id="remoteVideos" class="grid__main wrapper" >
+                        
+                      </div>
+                    </div>
                 </div>
                 <div>
-                    <div autoplay="autoplay" id="localVideos">
+                    <div autoplay="autoplay" id="localVideos" class="wrapper">
                     </div>
                 </div>
             </section>
@@ -41,85 +45,27 @@ export default {
 }
 </script>
 
-<style scoped>
-:root {
-  --four-cols: repeat(4, calc(90%/4));
+<style>
+.grid {
+  display:grid;
+  grid-template-columns: 1fr minmax(0,80em) 1fr;
+  grid-gap:10px;
 }
 
-/* ETIQUETAS */
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.grid__main {
+  grid-column: 2/3;
 }
-
-html {
-  font-size: 14px;
-}
-
-body {
-  background-image: url("./pictures/wallpaper2.jpg");
-  background-size: cover;
-}
-
-nav {
-  height: 100px;
-  margin-bottom: 50px;
-  background-color: white;
-}
-
-h2 {
-  font-size: 2.5rem;
-}
-
 video {
-  border-radius: 50%;
-  background-color: white;
+  margin-top:10px;
 }
 
-/* .ocultar {
-  display: none;
-} */
-/* GRID */
 
-.grid-wrapper,
-#videos,
-#remoteVideos {
-  display: grid;
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap:wrap;
+    flex-direction: row;
 }
 
-.grid-wrapper {
-  grid-template-columns: minmax(1em, 1fr) minmax(0, 80em) minmax(1em, 1fr);
-}
-
-.grid-wrapper > div {
-  grid-column: 2;
-}
-
-#videos {
-  grid-template-columns: 65% 35%;
-}
-
-#remoteVideos {
-  grid-template-columns: var(--four-cols);
-}
-
-#localVideos > div,
-#remoteVideos > div {
-  overflow: hidden;
-}
-
-/* STYLE */
-
-#demoContainer {
-  background-color: rgba(139, 143, 148, 0.7);
-  min-height: 80vh;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-#localVideos video {
-  border-radius: 0;
-}
 </style>
