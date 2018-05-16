@@ -16,7 +16,6 @@
                 <div>
                     <div autoplay="autoplay" class="grid">
                       <div id="remoteVideos" class="grid__main wrapper" >
-                        
                       </div>
                     </div>
                 </div>
@@ -57,6 +56,10 @@ export default {
 }
 video {
   margin-top:10px;
+}
+
+video:hover {
+  cursor: pointer;
 }
 
 .wrapper {

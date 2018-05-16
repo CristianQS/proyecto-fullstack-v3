@@ -23,6 +23,10 @@ function addMediaStreamToDiv(divId, stream, streamName, isLocal) {
   // labelBlock.innerHTML = '<pre>' + formattedName + '</pre><br>'
   // container.appendChild(labelBlock)
   var video = document.createElement('video')
+  video.id = streamName;
+  video.onclick = function () {
+    requestFullScreen(streamName);
+  }
   video.width = 350
   video.height = 200
   video.muted = isLocal
@@ -98,18 +102,19 @@ function convertListToButtons(roomName, occupants, isPrimary) {
     for (var easyrtcid in occupants) {
       participantes.push(easyrtcid)
     }
-    if(admin.easyrtcid == isPrimary.easyrtcid){
+    if (admin.easyrtcid == isPrimary.easyrtcid) {
       var button = document.createElement('button')
       button.onclick = (function () {
-          participantes.forEach(easyrtcid=>{
-            performCall(easyrtcid)
-          })})
+        participantes.forEach(easyrtcid => {
+          performCall(easyrtcid)
+        })
+      })
 
       var label = document.createTextNode('Conectar con todos')
       button.appendChild(label)
       button.setAttribute('class', 'waves-effect waves-light btn ocultar')
       otherClientDiv.appendChild(button)
-      }  
+    }
   }
 }
 
@@ -153,14 +158,14 @@ function loginSuccess() {
   var newUrl = url.substring(index + 1)
   easyrtc.joinRoom(newUrl, easyrtc.idToName(easyrtc.myEasyrtcid),
     function (success) {
-      
+
       admin = Object.values(easyrtc.roomJoin.default.clientList)[0]
       easyrtc.setRoomOccupantListener(convertListToButtons)
       easyrtc.setAutoInitUserMedia(false)
       //
       // add an extra button for screen sharing
       //
-      if(otherEasyrtcid){
+      if (otherEasyrtcid) {
         var screenShareButton = createLabelledButton('Desktop capture/share')
         screenShareButton.onclick = function () {
           var streamName = makeid()
@@ -177,7 +182,7 @@ function loginSuccess() {
             },
             streamName)
         }
-      }else{
+      } else {
         var screenShareButton = createLabelledButton('Desktop capture/share')
         screenShareButton.onclick = function () {
           var streamName = makeid()
@@ -241,5 +246,34 @@ easyrtc.setAcceptChecker(function (easyrtcid, callback) {
   }
   callback(true, easyrtc.getLocalMediaIds())
 })
+
+function requestFullScreen(streamName) {
+  var elem = document.getElementById(streamName);
+
+  elem.className = "bigBox";
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) {
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
+  }
+  var hideBox = document.getElementById("shrinkBox");
+  hideBox.className = "yesShrink";
+  hideBox.onclick = function () {
+    hideBox.className = "noShrink";
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+    else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    }
+    else if (document.webkitCancelFullScreen) {
+      document.webkitCancelFullScreen();
+    }
+    elem.className = "smallBox";
+  };
+
+}
 
 initial()
