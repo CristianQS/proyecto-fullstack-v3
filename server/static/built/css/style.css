@@ -1,0 +1,62 @@
+:root {
+  --primary-color: rgba(137, 247, 254, 0.4);
+  --secondary-color: rgba(102, 166, 255, 0.4);
+  --wrapper-grid: minmax(1em, 1fr) minmax(90em, 1fr) minmax(1em, 1fr);
+  --login: 55% 45%;
+  --video-grid: repeat(auto-fill, minmax(350px, 1fr));
+  --auth: repeat(4, calc(100%/4));
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  font-size: 1rem;
+  font-family: 'Lato', Arial, Helvetica, sans-serif;
+  background: linear-gradient( var(--primary-color), var(--primary-color)), url('https://source.unsplash.com/featured/1920x1080/?landscape');
+  background-size: cover;
+}
+
+.wrapper-grid,
+#login,
+#videos,
+#auth {
+  display: grid;
+}
+
+.wrapper-grid {
+  grid-template-columns: var(--wrapper-grid);
+}
+
+.wrapper-grid>* {
+  grid-column: 2;
+  padding: 10px;
+  text-align: center;
+}
+
+main.wrapper-grid>section,
+main.wrapper-grid form {
+  background-color: #062126;
+}
+
+#login {
+  grid-template-columns: var(--login);
+}
+
+#login>form {
+  grid-column: 2;
+}
+
+#videos {
+  grid-template-columns: var(--video-grid);
+  grid-gap: 5px;
+}
+
+#auth {
+  grid-template-columns: var(--auth);
+}

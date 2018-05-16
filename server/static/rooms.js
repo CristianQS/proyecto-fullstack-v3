@@ -21,7 +21,7 @@ function addMediaStreamToDiv(divId, stream, streamName, isLocal) {
   // labelBlock.style.width = '220px'
   // labelBlock.style.cssFloat = 'left'
   // labelBlock.innerHTML = '<pre>' + formattedName + '</pre><br>'
-  container.appendChild(labelBlock)
+  // container.appendChild(labelBlock)
   var video = document.createElement('video')
   video.width = 350
   video.height = 200
