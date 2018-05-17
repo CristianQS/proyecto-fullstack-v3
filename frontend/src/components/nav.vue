@@ -1,7 +1,6 @@
 <template>
-
     <nav class="wrapper-grid">
-    <a href="index.html">
+    <a href="index.html" :style="{'text-align': alineacion}">
         <img :src="enlace" alt="SharedNet">
     </a>
 </nav>
@@ -11,23 +10,24 @@
 export default {
   name: 'Nav',
   props: [
-    'enlace'
+    'enlace',
+    'alineacion'
   ]
 }
 </script>
 
 <style scoped>
     nav {
-    background-color: white;
-    border-bottom: 1px solid grey;
-    color: black;
+    background-color: #fff;
     margin-bottom: 20px;
     text-align: center;
     overflow: hidden;
-    height: 90px;
+    height: 8vh;
+    box-shadow: none;
 }
 
 nav img {
-    height: 5rem;
+    padding-top: 5px;
+    height: 3.7rem;
 }
 </style>
