@@ -6,10 +6,10 @@
             <div id='connectControls'>
                 <!-- <button class='waves-effect waves-light btn' id='connectButton' onclick='connect()'>Conectarse a Sala</button> -->
                 <!-- <button class='waves-effect waves-light btn' id='hangupButton' disabled='disabled' onclick='hangup()'>Salir de la Sala</button> -->
-                <div id='videoSrcBlk'>
+                <div id='videoSrcBlk' class="customer-button">
                 </div>
                 <br />
-                <div id='otherClients'></div>
+                <div id='otherClients' class="customer-button"></div>
             </div>
 
             <section >
@@ -44,6 +44,15 @@ export default {
 </script>
 
 <style>
+<<<<<<< HEAD
+=======
+
+.customer-button{
+  display: flex;
+  justify-content: center;
+}
+
+>>>>>>> 7724a9c531efdf19cb4c9f480962bab3a9de8c28
 .grid {
   display:grid;
   grid-template-columns: 1fr minmax(0,80em) 1fr;
