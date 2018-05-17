@@ -108,6 +108,7 @@ function convertListToButtons(roomName, occupants, isPrimary) {
         participantes.forEach(easyrtcid => {
           performCall(easyrtcid)
         })
+        participantes = []
       })
 
       var label = document.createTextNode('Conectar con todos')
@@ -131,12 +132,10 @@ function makeid() {
 function performCall(targetEasyrtcId) {
   otherEasyrtcid = targetEasyrtcId
   var acceptedCB = function (accepted, easyrtcid) {
-    console.log("esto es accept " + accepted)
     if (!accepted) {
       // easyrtc.showError('CALL-REJECTED', 'Sorry, your call to ' + easyrtc.idToName(easyrtcid) + ' was rejected')
       enable('otherClients')
     } else {
-      console.log("hacen la llamada")
     }
   }
 
@@ -165,39 +164,39 @@ function loginSuccess() {
       //
       // add an extra button for screen sharing
       //
-      if (otherEasyrtcid) {
-        var screenShareButton = createLabelledButton('Desktop capture/share')
-        screenShareButton.onclick = function () {
-          var streamName = makeid()
-          easyrtc.initDesktopStream(
-            function (stream) {
-              createLocalVideo(stream, streamName)
-              console.log("otro stream " + otherEasyrtcid)
-              if (otherEasyrtcid) {
-                easyrtc.addStreamToCall(otherEasyrtcid, streamName)
-              }
-            },
-            function (errCode, errText) {
-              easyrtc.showError(errCode, errText)
-            },
-            streamName)
-        }
-      } else {
-        var screenShareButton = createLabelledButton('Desktop capture/share')
-        screenShareButton.onclick = function () {
-          var streamName = makeid()
-          easyrtc.initDesktopStream(
-            function (stream) {
-              createLocalVideo(stream, streamName)
-              console.log("otro stream " + easyrtc.myEasyrtcid)
-              if (easyrtc.myEasyrtcid) {
-                easyrtc.addStreamToCall(easyrtc.myEasyrtcid, streamName)
-              }
-            },
-            function (errCode, errText) {
-              easyrtc.showError(errCode, errText)
-            },
-            streamName)
+      if (admin.easyrtcid != easyrtc.myEasyrtcid) {
+        if (otherEasyrtcid) {
+          var screenShareButton = createLabelledButton('Desktop capture/share')
+          screenShareButton.onclick = function () {
+            var streamName = makeid()
+            easyrtc.initDesktopStream(
+              function (stream) {
+                createLocalVideo(stream, streamName)
+                if (otherEasyrtcid) {
+                  easyrtc.addStreamToCall(otherEasyrtcid, streamName)
+                }
+              },
+              function (errCode, errText) {
+                easyrtc.showError(errCode, errText)
+              },
+              streamName)
+          }
+        } else {
+          var screenShareButton = createLabelledButton('Desktop capture/share')
+          screenShareButton.onclick = function () {
+            var streamName = makeid()
+            easyrtc.initDesktopStream(
+              function (stream) {
+                createLocalVideo(stream, streamName)
+                if (easyrtc.myEasyrtcid) {
+                  easyrtc.addStreamToCall(easyrtc.myEasyrtcid, streamName)
+                }
+              },
+              function (errCode, errText) {
+                easyrtc.showError(errCode, errText)
+              },
+              streamName)
+          }
         }
       }
     },
@@ -220,13 +219,13 @@ function disconnect() {
 
 easyrtc.setStreamAcceptor(function (easyrtcid, stream, streamName) {
   var labelBlock = addMediaStreamToDiv('remoteVideos', stream, streamName, false)
-  labelBlock.parentNode.id = 'remoteBlock' + easyrtcid + streamName
+  // labelBlock.parentNode.id = streamName
   //labelBlock.parentNode.className = 'grid__main wrapper'
 })
 
 
 easyrtc.setOnStreamClosed(function (easyrtcid, stream, streamName) {
-  var item = document.getElementById('remoteBlock' + easyrtcid + streamName)
+  var item = document.getElementById(streamName)
   item.parentNode.removeChild(item)
 })
 

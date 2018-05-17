@@ -1,6 +1,7 @@
 <template>
   <div>
      <Nav enlace="http://res.cloudinary.com/faus6rguez/image/upload/v1526487699/mainlogo_csze1j.png"/>
+    <div>
     <main class='grid-wrapper' id='container'>
         <div id='demoContainer'>
             <div id='connectControls'>
@@ -20,12 +21,13 @@
                     </div>
                 </div>
                 <div>
-                    <div autoplay="autoplay" id="localVideos" class="wrapper">
+                    <div autoplay="autoplay" id="localVideos" class="room-wrapper">
                     </div>
                 </div>
             </section>
         </div>
     </main>
+    </div>
   </div>
 </template>
 
@@ -57,11 +59,8 @@ export default {
   grid-gap:10px;
 }
 
-.grid__main {
+.room-grid__main {
   grid-column: 2/3;
-}
-video {
-  margin-top:10px;
 }
 
 video:hover {
