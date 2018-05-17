@@ -2,13 +2,12 @@
   <img src="http://res.cloudinary.com/faus6rguez/image/upload/v1526487699/logo_ympqbb.png">
 </p>
 
-sharedNet is a video collaboration tool that lets you have screen sharing effectively.The main goal of this project is to make live presentations easier for people. Sharing your screen with others, will fix the problemn of distance and just using the browser as the main tool. Create a room with no required registration and start sharing your screen!
+Create a room with no required registration and start making awesome presentations!
 
+SharedNet is a video collaboration tool that lets you have screen sharing effectively. The main goal of this project is to make live presentations easier for people. Every person that connects to the same room will be able to share their screen. If a room is not already created, a user will connect in "admin" mode, allowing them to see the shared screens and in full screen. 
 
 ## Frontend
 > A Vue.js project
-
-### Build Setup
 
 ``` bash
 # install dependencies
@@ -18,13 +17,11 @@ npm install
 npm run dev
 
 # build for production
-npm run build
+npm run build and in index.html change some paths with this src="/built/..."
 ```
 
 ## Backend
 > EasyRTC Server Example
-
-### Build Setup
 
 Files and Folders:
 ------------------
@@ -37,10 +34,3 @@ Running the Server:
 -------------------
 
  - Type `node server` in console.
-
-
-Viewing the examples:
----------------------
-
- - In your WebRTC enabled browser, visit your server address including the port. By default port 8080 is used.
- - http://localhost:8080/
