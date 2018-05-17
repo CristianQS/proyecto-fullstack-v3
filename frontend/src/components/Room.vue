@@ -1,6 +1,7 @@
 <template>
   <div>
      <Nav enlace="http://res.cloudinary.com/faus6rguez/image/upload/v1526487699/mainlogo_csze1j.png"/>
+    <div>
     <main class='grid-wrapper' id='container'>
         <div id='demoContainer'>
             <div id='connectControls'>
@@ -14,19 +15,22 @@
 
             <section id='videos'>
                 <div>
-                    <div autoplay="autoplay" class="grid">
-                      <div id="remoteVideos" class="grid__main wrapper" >
-                        
+                    <div autoplay="autoplay" class="room-grid">
+                      <div id="remoteVideos" class="room-grid__main room-wrapper" >
+                        <video></video>
+                        <video></video>
+                        <video></video>
                       </div>
                     </div>
                 </div>
                 <div>
-                    <div autoplay="autoplay" id="localVideos" class="wrapper">
+                    <div autoplay="autoplay" id="localVideos" class="room-wrapper">
                     </div>
                 </div>
             </section>
         </div>
     </main>
+    </div>
   </div>
 </template>
 
@@ -46,21 +50,23 @@ export default {
 </script>
 
 <style>
-.grid {
+.room-grid {
   display:grid;
   grid-template-columns: 1fr minmax(0,80em) 1fr;
   grid-gap:10px;
 }
 
-.grid__main {
+.room-grid__main {
   grid-column: 2/3;
 }
 video {
   margin-top:10px;
+  width: 350px;
+  height:200px;
+  background-color:blue;
 }
 
-
-.wrapper {
+.room-wrapper {
     display: flex;
     justify-content: space-around;
     align-items: center;
