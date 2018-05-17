@@ -13,13 +13,10 @@
                 <div id='otherClients'></div>
             </div>
 
-            <section id='videos'>
+            <section >
                 <div>
-                    <div autoplay="autoplay" class="room-grid">
-                      <div id="remoteVideos" class="room-grid__main room-wrapper" >
-                        <video></video>
-                        <video></video>
-                        <video></video>
+                    <div autoplay="autoplay" class="grid">
+                      <div id="remoteVideos" class="grid__main wrapper" >
                       </div>
                     </div>
                 </div>
@@ -59,19 +56,71 @@ export default {
 .room-grid__main {
   grid-column: 2/3;
 }
-video {
-  margin-top:10px;
-  width: 350px;
-  height:200px;
-  background-color:blue;
+
+video:hover {
+  cursor: pointer;
 }
 
-.room-wrapper {
+.wrapper {
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-wrap:wrap;
     flex-direction: row;
 }
+
+:root {
+  --four-cols: repeat(4, calc(90%/4));
+}
+/* ETIQUETAS */
+nav {
+  height: 100px;
+  margin-bottom: 50px;
+  background-color: white;
+  text-align: center;
+}
+h2 {
+  font-size: 2.5rem;
+}
+video {
+  background-color: white;
+}
+/* .ocultar {
+  display: none;
+} */
+/* GRID */
+.grid-wrapper,
+#remoteVideos {
+  display: grid;
+}
+.grid-wrapper {
+  grid-template-columns: minmax(1em, 1fr) minmax(0, 80em) minmax(1em, 1fr);
+}
+.grid-wrapper > div {
+  grid-column: 2;
+}
+#remoteVideos {
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+}
+#remoteVideos > div {
+  overflow: hidden;
+  text-align: center;
+}
+/* STYLE */
+#demoContainer {
+  background-color: rgba(139, 143, 148, 0.7);
+  min-height: 80vh;
+  padding: 20px;
+  border-radius: 5px;
+}
+#localVideos video {
+  border-radius: 0;
+}
+    nav.wrapper-grid a {
+        text-align: center;
+    }
+    nav.wrapper-grid img {
+      height: 4.9rem;
+    }
 
 </style>
