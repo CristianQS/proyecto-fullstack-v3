@@ -142,4 +142,8 @@ div#remoteVideos:hover >div:after {
     cursor: pointer;
     pointer-events: none;
 }
+#remoteVideos>div {
+  position: relative;
+}
+
 </style>
