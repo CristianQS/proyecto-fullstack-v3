@@ -39,22 +39,18 @@ easyrtc.events.on("easyrtcAuth", function(socket, easyrtcid, msg, socketCallback
             return;
         }
         connectionObj.setField("credential", msg.msgData.credential, {"isShared":false});
-        console.log("["+easyrtcid+"] Credential saved!", connectionObj.getFieldValueSync("credential"));
         callback(err, connectionObj);
     });
 });
 
 // To test, lets print the credential to the console for every room join!
 easyrtc.events.on("roomJoin", function(connectionObj, roomName, roomParameter, callback) {
-    console.log("["+connectionObj.getEasyrtcid()+"] Credential retrieved!", connectionObj.getFieldValueSync("credential"));
     easyrtc.events.defaultListeners.roomJoin(connectionObj, roomName, roomParameter, callback);
 });
 
 // Start EasyRTC server
 var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
-    console.log("Initiated");
     rtcRef.events.on("roomCreate", function(appObj, creatorConnectionObj, roomName, roomOptions, callback) {
-        console.log("roomCreate fired! Trying to create: " + roomName);
         appObj.events.defaultListeners.roomCreate(appObj, creatorConnectionObj, roomName, roomOptions, callback);
     });
 });

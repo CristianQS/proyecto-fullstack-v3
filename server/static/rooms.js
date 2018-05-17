@@ -132,12 +132,10 @@ function makeid() {
 function performCall(targetEasyrtcId) {
   otherEasyrtcid = targetEasyrtcId
   var acceptedCB = function (accepted, easyrtcid) {
-    console.log("esto es accept " + accepted)
     if (!accepted) {
       // easyrtc.showError('CALL-REJECTED', 'Sorry, your call to ' + easyrtc.idToName(easyrtcid) + ' was rejected')
       enable('otherClients')
     } else {
-      console.log("hacen la llamada")
     }
   }
 
@@ -166,8 +164,6 @@ function loginSuccess() {
       //
       // add an extra button for screen sharing
       //
-      console.log("esto es admij ", admin)
-      console.log("esto es caca ", easyrtc.myEasyrtcid)
       if (admin.easyrtcid != easyrtc.myEasyrtcid) {
         if (otherEasyrtcid) {
           var screenShareButton = createLabelledButton('Desktop capture/share')
@@ -176,7 +172,6 @@ function loginSuccess() {
             easyrtc.initDesktopStream(
               function (stream) {
                 createLocalVideo(stream, streamName)
-                console.log("otro stream " + otherEasyrtcid)
                 if (otherEasyrtcid) {
                   easyrtc.addStreamToCall(otherEasyrtcid, streamName)
                 }
@@ -193,7 +188,6 @@ function loginSuccess() {
             easyrtc.initDesktopStream(
               function (stream) {
                 createLocalVideo(stream, streamName)
-                console.log("otro stream " + easyrtc.myEasyrtcid)
                 if (easyrtc.myEasyrtcid) {
                   easyrtc.addStreamToCall(easyrtc.myEasyrtcid, streamName)
                 }
@@ -225,13 +219,13 @@ function disconnect() {
 
 easyrtc.setStreamAcceptor(function (easyrtcid, stream, streamName) {
   var labelBlock = addMediaStreamToDiv('remoteVideos', stream, streamName, false)
-  labelBlock.parentNode.id = 'remoteBlock' + easyrtcid + streamName
+  // labelBlock.parentNode.id = streamName
   //labelBlock.parentNode.className = 'grid__main wrapper'
 })
 
 
 easyrtc.setOnStreamClosed(function (easyrtcid, stream, streamName) {
-  var item = document.getElementById('remoteBlock' + easyrtcid + streamName)
+  var item = document.getElementById(streamName)
   item.parentNode.removeChild(item)
 })
 
