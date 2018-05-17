@@ -2,7 +2,7 @@
   <img src="http://res.cloudinary.com/faus6rguez/image/upload/v1526487699/logo_ympqbb.png">
 </p>
 
-Create a room with no required registration and start making awesome presentations!
+<p align="center"> Create a room with no required registration and start making awesome presentations! </p>
 
 SharedNet is a video collaboration tool that lets you have screen sharing effectively. The main goal of this project is to make live presentations easier for people. Every person that connects to the same room will be able to share their screen. If a room is not already created, a user will connect in "admin" mode, allowing them to see the shared screens and in full screen. 
 
