@@ -165,39 +165,43 @@ function loginSuccess() {
       //
       // add an extra button for screen sharing
       //
-      if (otherEasyrtcid) {
-        var screenShareButton = createLabelledButton('Desktop capture/share')
-        screenShareButton.onclick = function () {
-          var streamName = makeid()
-          easyrtc.initDesktopStream(
-            function (stream) {
-              createLocalVideo(stream, streamName)
-              console.log("otro stream " + otherEasyrtcid)
-              if (otherEasyrtcid) {
-                easyrtc.addStreamToCall(otherEasyrtcid, streamName)
-              }
-            },
-            function (errCode, errText) {
-              easyrtc.showError(errCode, errText)
-            },
-            streamName)
-        }
-      } else {
-        var screenShareButton = createLabelledButton('Desktop capture/share')
-        screenShareButton.onclick = function () {
-          var streamName = makeid()
-          easyrtc.initDesktopStream(
-            function (stream) {
-              createLocalVideo(stream, streamName)
-              console.log("otro stream " + easyrtc.myEasyrtcid)
-              if (easyrtc.myEasyrtcid) {
-                easyrtc.addStreamToCall(easyrtc.myEasyrtcid, streamName)
-              }
-            },
-            function (errCode, errText) {
-              easyrtc.showError(errCode, errText)
-            },
-            streamName)
+      console.log("esto es admij ", admin)
+      console.log("esto es caca ", easyrtc.myEasyrtcid)
+      if (admin.easyrtcid != easyrtc.myEasyrtcid) {
+        if (otherEasyrtcid) {
+          var screenShareButton = createLabelledButton('Desktop capture/share')
+          screenShareButton.onclick = function () {
+            var streamName = makeid()
+            easyrtc.initDesktopStream(
+              function (stream) {
+                createLocalVideo(stream, streamName)
+                console.log("otro stream " + otherEasyrtcid)
+                if (otherEasyrtcid) {
+                  easyrtc.addStreamToCall(otherEasyrtcid, streamName)
+                }
+              },
+              function (errCode, errText) {
+                easyrtc.showError(errCode, errText)
+              },
+              streamName)
+          }
+        } else {
+          var screenShareButton = createLabelledButton('Desktop capture/share')
+          screenShareButton.onclick = function () {
+            var streamName = makeid()
+            easyrtc.initDesktopStream(
+              function (stream) {
+                createLocalVideo(stream, streamName)
+                console.log("otro stream " + easyrtc.myEasyrtcid)
+                if (easyrtc.myEasyrtcid) {
+                  easyrtc.addStreamToCall(easyrtc.myEasyrtcid, streamName)
+                }
+              },
+              function (errCode, errText) {
+                easyrtc.showError(errCode, errText)
+              },
+              streamName)
+          }
         }
       }
     },
