@@ -44,20 +44,18 @@ export default {
 </script>
 
 <style>
-<<<<<<< HEAD
-=======
 
-.customer-button{
+.customer-button {
   display: flex;
   justify-content: center;
 }
 
->>>>>>> 7724a9c531efdf19cb4c9f480962bab3a9de8c28
 .grid {
   display:grid;
   grid-template-columns: 1fr minmax(0,80em) 1fr;
   grid-gap:10px;
 }
+
 .grid__main {
   grid-column: 2/3;
 }
