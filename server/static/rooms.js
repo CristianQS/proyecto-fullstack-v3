@@ -108,6 +108,7 @@ function convertListToButtons(roomName, occupants, isPrimary) {
         participantes.forEach(easyrtcid => {
           performCall(easyrtcid)
         })
+        participantes = []
       })
 
       var label = document.createTextNode('Conectar con todos')
