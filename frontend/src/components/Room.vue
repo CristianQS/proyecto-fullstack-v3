@@ -7,7 +7,7 @@
                 <div id='videoSrcBlk'>
                 </div>
                 <br />
-                <div id='otherClients'></div>
+                <div id='otherClients' class="customer-button"></div>
             </div>
             <section >
                 <div>
@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div>
-                    <div autoplay='autoplay' id='localVideos' class='room-wrapper'>
+                    <div autoplay="autoplay" id="localVideos" class="wrapper">
                     </div>
                 </div>
             </section>
@@ -34,7 +34,6 @@ export default {
     recaptchaScript.setAttribute('src', './rooms.js')
     document.head.appendChild(recaptchaScript)
   },
-
   components: {
     Nav
   }
@@ -42,20 +41,27 @@ export default {
 </script>
 
 <style>
-.room-grid {
-  display: grid;
-  grid-template-columns: 1fr minmax(0, 80em) 1fr;
-  grid-gap: 10px;
+
+.customer-button {
+  display: flex;
+  justify-content: center;
 }
 
-.room-grid__main {
+.grid {
+  display:grid;
+  grid-template-columns: 1fr minmax(0,80em) 1fr;
+  grid-gap:10px;
+}
+
+.grid__main {
   grid-column: 2/3;
 }
-
+video {
+  margin-top:10px;
+}
 video:hover {
   cursor: pointer;
 }
-
 .wrapper {
   display: flex;
   justify-content: space-around;
@@ -63,7 +69,6 @@ video:hover {
   flex-wrap: wrap;
   flex-direction: row;
 }
-
 :root {
   --four-cols: repeat(4, calc(90% / 4));
 }
@@ -110,11 +115,5 @@ video {
 }
 #localVideos video {
   border-radius: 0;
-}
-nav.wrapper-grid a {
-  text-align: center;
-}
-nav.wrapper-grid img {
-  height: 4.9rem;
 }
 </style>
