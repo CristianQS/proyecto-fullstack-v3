@@ -1,33 +1,28 @@
 <template>
   <div>
-     <Nav enlace="http://res.cloudinary.com/faus6rguez/image/upload/v1526487699/mainlogo_csze1j.png"/>
-    <div>
+      <Nav enlace='http://res.cloudinary.com/faus6rguez/image/upload/v1526487699/mainlogo_csze1j.png' alineacion='center'/>
     <main class='grid-wrapper' id='container'>
         <div id='demoContainer'>
             <div id='connectControls'>
-                <!-- <button class='waves-effect waves-light btn' id='connectButton' onclick='connect()'>Conectarse a Sala</button> -->
-                <!-- <button class='waves-effect waves-light btn' id='hangupButton' disabled='disabled' onclick='hangup()'>Salir de la Sala</button> -->
                 <div id='videoSrcBlk'>
                 </div>
                 <br />
                 <div id='otherClients'></div>
             </div>
-
             <section >
                 <div>
-                    <div autoplay="autoplay" class="grid">
-                      <div id="remoteVideos" class="grid__main wrapper" >
+                    <div autoplay='autoplay' class='grid'>
+                      <div id='remoteVideos' class='grid__main wrapper' >
                       </div>
                     </div>
                 </div>
                 <div>
-                    <div autoplay="autoplay" id="localVideos" class="room-wrapper">
+                    <div autoplay='autoplay' id='localVideos' class='room-wrapper'>
                     </div>
                 </div>
             </section>
         </div>
     </main>
-    </div>
   </div>
 </template>
 
@@ -48,9 +43,9 @@ export default {
 
 <style>
 .room-grid {
-  display:grid;
-  grid-template-columns: 1fr minmax(0,80em) 1fr;
-  grid-gap:10px;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 80em) 1fr;
+  grid-gap: 10px;
 }
 
 .room-grid__main {
@@ -62,15 +57,15 @@ video:hover {
 }
 
 .wrapper {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap:wrap;
-    flex-direction: row;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
 :root {
-  --four-cols: repeat(4, calc(90%/4));
+  --four-cols: repeat(4, calc(90% / 4));
 }
 /* ETIQUETAS */
 nav {
@@ -116,11 +111,10 @@ video {
 #localVideos video {
   border-radius: 0;
 }
-    nav.wrapper-grid a {
-        text-align: center;
-    }
-    nav.wrapper-grid img {
-      height: 4.9rem;
-    }
-
+nav.wrapper-grid a {
+  text-align: center;
+}
+nav.wrapper-grid img {
+  height: 4.9rem;
+}
 </style>

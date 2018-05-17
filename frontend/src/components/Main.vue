@@ -1,24 +1,22 @@
 <template>
   <div>
-    <Nav enlace="http://res.cloudinary.com/faus6rguez/image/upload/v1526487699/logo_ympqbb.png"/>
-    <main class="row">
-        <div class="grid col s12 bigimage wrapper ">
-            <div class="grid__main ">
-                <h1 class="col s6 " >Nacho es un Tolete</h1>
-                <div class="col s6 ">
-                    <div class="card medium ">
-                        <div class="card-content wrapper ">
-                            <h2>
-                                Crea Tu Propia Sala
-                            </h2>
-                            <input placeholder="Room" id="userInput" type="text" name="room" class="validate" v-model="roomName">
-                            <router-link :to="'/Room/' + roomName" tag="span" style="cursor: pointer" class="mt-4">
-                            <a class="waves-effect waves-light btn-large"><i class="material-icons right medium">airplay</i>Crear Sala</a>
-                            </router-link>
-                        </div>
-                    </div>
-                </div>
 
+    <main id="login">
+        <div id="description">
+            <h1>Make Awesome Your Presentations</h1>
+        </div>
+        <div id="builder">
+            <div>
+                <img src="http://res.cloudinary.com/faus6rguez/image/upload/v1526566936/logo_oin7px.png
+" alt="SharedNet">
+                <h2>Create Your Own Room</h2>
+                <input placeholder="Room" id="userInput" type="text" name="room" class="validate" v-model="roomName">
+                <router-link :to="'/room/' + roomName" tag="span" style="cursor: pointer">
+                <a class="waves-effect waves-light btn-large"><i class="material-icons right medium">add_to_queue</i>Crear Sala</a>
+                </router-link>
+                <router-link :to="'/room/' + roomName" tag="span" style="cursor: pointer">
+                <a class="waves-effect waves-light btn-large"><i class="material-icons right medium">airplay</i>Unirse a Sala</a>
+                </router-link>
             </div>
         </div>
     </main>
@@ -42,34 +40,28 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1 {
-    font-size: 70px;
-    color: white;
-}
-
-p{
-    font-size: 20px;
-}
-.grid {
-    display: grid;
-    grid-template-columns:1fr minmax(0,80em)1fr ;
-}
-
-.grid__main {
-    grid-column: 2/3;
-}
-
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-nav.wrapper-grid a {
-    text-align: left;
-}
-main {
-    margin-top: 20vh;
-}
+    main {
+        height: 100vh;
+    }
+    #description,
+    #builder,
+    #userInput {
+        text-align: center;
+    }
+    #description {
+        padding-top: 20vh;
+        color: white;
+    }
+    #builder {
+        background-color: white;
+        padding: 0 5vw;
+        padding-top: 20vh;
+        border-left: 1px solid #ADADAD;
+    }
+    #userInput {
+        padding-top: 5vh;
+    }
+    h1 {
+        font-weight: 700;
+    }
 </style>
