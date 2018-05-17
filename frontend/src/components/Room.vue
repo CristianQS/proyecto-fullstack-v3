@@ -85,9 +85,7 @@ nav {
 h2 {
   font-size: 2.5rem;
 }
-video {
-  background-color: white;
-}
+
 /* .ocultar {
   display: none;
 } */
