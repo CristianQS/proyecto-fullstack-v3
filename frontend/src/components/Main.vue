@@ -10,7 +10,7 @@
                 <img src="http://res.cloudinary.com/faus6rguez/image/upload/v1526566936/logo_oin7px.png
 " alt="SharedNet">
                 <h2>Create Your Own Room</h2>
-                <input placeholder="Room" id="userInput" type="text" name="room" class="validate" v-model="roomName">
+                <input placeholder="Room" @keyup.enter="goTo('room/' + roomName)" id="userInput" type="text" name="room" class="validate" v-model="roomName">
                 <router-link :to="'/room/' + roomName" tag="span" style="cursor: pointer">
                 <a class="waves-effect waves-light btn-large"><i class="material-icons right medium">add_to_queue</i>Crear Sala</a>
                 </router-link>
@@ -34,6 +34,11 @@ export default {
   },
   components: {
     Nav
+  },
+  methods: {
+    goTo (url) {
+      location.href = '#/' + url
+    }
   }
 }
 </script>
