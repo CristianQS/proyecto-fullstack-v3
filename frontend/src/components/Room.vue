@@ -1,7 +1,6 @@
 <template>
   <div>
      <Nav enlace="http://res.cloudinary.com/faus6rguez/image/upload/v1526487699/mainlogo_csze1j.png"/>
-    <div>
     <main class='grid-wrapper' id='container'>
         <div id='demoContainer'>
             <div id='connectControls'>
@@ -21,13 +20,12 @@
                     </div>
                 </div>
                 <div>
-                    <div autoplay="autoplay" id="localVideos" class="room-wrapper">
+                    <div autoplay="autoplay" id="localVideos" class="wrapper">
                     </div>
                 </div>
             </section>
         </div>
     </main>
-    </div>
   </div>
 </template>
 
@@ -39,7 +37,6 @@ export default {
     recaptchaScript.setAttribute('src', './rooms.js')
     document.head.appendChild(recaptchaScript)
   },
-
   components: {
     Nav
   }
@@ -47,20 +44,20 @@ export default {
 </script>
 
 <style>
-.room-grid {
+.grid {
   display:grid;
   grid-template-columns: 1fr minmax(0,80em) 1fr;
   grid-gap:10px;
 }
-
-.room-grid__main {
+.grid__main {
   grid-column: 2/3;
 }
-
+video {
+  margin-top:10px;
+}
 video:hover {
   cursor: pointer;
 }
-
 .wrapper {
     display: flex;
     justify-content: space-around;
@@ -68,7 +65,6 @@ video:hover {
     flex-wrap:wrap;
     flex-direction: row;
 }
-
 :root {
   --four-cols: repeat(4, calc(90%/4));
 }
@@ -122,5 +118,4 @@ video {
     nav.wrapper-grid img {
       height: 4.9rem;
     }
-
 </style>
