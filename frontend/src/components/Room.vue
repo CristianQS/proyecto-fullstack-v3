@@ -4,10 +4,8 @@
     <main class='grid-wrapper' id='container'>
         <div id='demoContainer'>
             <div id='connectControls'>
-                <div id='videoSrcBlk'>
-                </div>
-                <br />
                 <div id='otherClients' class="customer-button"></div>
+                <div id='videoSrcBlk'></div>
             </div>
             <section >
                 <div>
@@ -50,7 +48,6 @@ export default {
 .grid {
   display:grid;
   grid-template-columns: 1fr minmax(0,80em) 1fr;
-  grid-gap:10px;
 }
 
 .grid__main {
@@ -58,6 +55,7 @@ export default {
 }
 video {
   margin-top:10px;
+  background-color: #5F7683;
 }
 video:hover {
   cursor: pointer;
@@ -99,6 +97,7 @@ h2 {
 }
 #remoteVideos {
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-gap:10px;
 }
 #remoteVideos > div {
   overflow: hidden;
@@ -114,4 +113,37 @@ h2 {
 #localVideos video {
   border-radius: 0;
 }
+#videoSrcBlk {
+  display: flex;
+  align-items: center;
+  height: 15vh;
+}
+#videoSrcBlk button {
+  margin: 0 auto;
+}
+#localVideos>div>div {
+  text-align: center;
+}
+div#remoteVideos:hover >div:after {
+    content: "🖳 Click to fullscreen mode";
+    color: #FFF;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: .8;
+    cursor: pointer;
+    pointer-events: none;
+}
+#remoteVideos>div {
+  position: relative;
+}
+
 </style>

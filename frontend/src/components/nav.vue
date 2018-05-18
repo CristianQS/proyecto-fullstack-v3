@@ -1,8 +1,10 @@
 <template>
     <nav class="wrapper-grid">
-    <a href="index.html" :style="{'text-align': alineacion}">
+        <router-link :to="'/'" tag="span" style="cursor: pointer">
+    <a :style="{'text-align': alineacion}">
         <img :src="enlace" alt="SharedNet">
     </a>
+        </router-link>
 </nav>
 </template>
 

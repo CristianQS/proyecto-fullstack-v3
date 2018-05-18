@@ -8,20 +8,17 @@ var admin = {}
 function createLabelledButton(buttonLabel) {
   var button = document.createElement('button')
   button.setAttribute('class', 'waves-effect waves-light btn')
+  button.setAttribute('id', buttonLabel + '_btn')
   button.appendChild(document.createTextNode(buttonLabel))
   document.getElementById('videoSrcBlk').appendChild(button)
+
   return button
 }
 
 function addMediaStreamToDiv(divId, stream, streamName, isLocal) {
   var container = document.createElement('div')
   container.style.marginBottom = '10px'
-  // var formattedName = streamName.replace('(', '<br>').replace(')', '')
   var labelBlock = document.createElement('div')
-  // labelBlock.style.width = '220px'
-  // labelBlock.style.cssFloat = 'left'
-  // labelBlock.innerHTML = '<pre>' + formattedName + '</pre><br>'
-  // container.appendChild(labelBlock)
   var video = document.createElement('video')
   video.id = streamName;
   video.onclick = function () {
@@ -103,7 +100,7 @@ function convertListToButtons(roomName, occupants, isPrimary) {
       participantes.push(easyrtcid)
     }
     if (admin.easyrtcid == isPrimary.easyrtcid) {
-      var button = document.createElement('button')
+      var button = document.createElement('a')
       button.onclick = (function () {
         participantes.forEach(easyrtcid => {
           performCall(easyrtcid)
@@ -111,9 +108,10 @@ function convertListToButtons(roomName, occupants, isPrimary) {
         participantes = []
       })
 
-      var label = document.createTextNode('Conectar con todos')
-      button.appendChild(label)
-      button.setAttribute('class', 'waves-effect waves-light btn ocultar')
+      // var label = document.createTextNode('Refrescar')
+      button.innerHTML = `<i class="material-icons large">replay</i>`
+      // button.appendChild(label)
+      button.setAttribute('class', 'btn-floating ocultar')
       otherClientDiv.appendChild(button)
     }
   }
@@ -170,7 +168,7 @@ function loginSuccess() {
           screenShareButton.onclick = function () {
             var streamName = makeid()
             console.log("esto es el estado de chrome ",event.data.chromeExtensionStatus)
-            /*easyrtc.initDesktopStream(
+            easyrtc.initDesktopStream(
               function (stream) {
                 createLocalVideo(stream, streamName)
                 if (otherEasyrtcid) {
@@ -181,10 +179,8 @@ function loginSuccess() {
                 easyrtc.showError(errCode, errText)
               },
               streamName)
-              // {
-              //   window.open('https://chrome.google.com/webstore/detail/screen-capturing/ajhifddimkapgcifgcodmmfdlknahffk?hl=es', '_blank');
-              // }*/
-              
+              $("#videoSrcBlk").css('height', '0')
+              $(this).remove()
           }
         } else {
           var screenShareButton = createLabelledButton('Desktop capture/share')
@@ -203,6 +199,8 @@ function loginSuccess() {
                 //easyrtc.showError(errCode, errText)
               },
               streamName)
+              $("#videoSrcBlk").css('height', '0')
+              $(this).remove()
           }
         }
       }
