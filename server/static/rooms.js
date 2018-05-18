@@ -123,7 +123,7 @@ function makeid() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-  for (var i = 0; i < 10; i++)
+  for (var i = 0; i < 16; i++)
     text += possible.charAt(Math.floor(Math.random() * possible.length));
 
   return text;
@@ -169,7 +169,8 @@ function loginSuccess() {
           var screenShareButton = createLabelledButton('Desktop capture/share')
           screenShareButton.onclick = function () {
             var streamName = makeid()
-            easyrtc.initDesktopStream(
+            console.log("esto es el estado de chrome ",event.data.chromeExtensionStatus)
+            /*easyrtc.initDesktopStream(
               function (stream) {
                 createLocalVideo(stream, streamName)
                 if (otherEasyrtcid) {
@@ -180,6 +181,10 @@ function loginSuccess() {
                 easyrtc.showError(errCode, errText)
               },
               streamName)
+              // {
+              //   window.open('https://chrome.google.com/webstore/detail/screen-capturing/ajhifddimkapgcifgcodmmfdlknahffk?hl=es', '_blank');
+              // }*/
+              
           }
         } else {
           var screenShareButton = createLabelledButton('Desktop capture/share')
@@ -193,7 +198,9 @@ function loginSuccess() {
                 }
               },
               function (errCode, errText) {
-                easyrtc.showError(errCode, errText)
+                console.log("esto es errorcode ",errCode)
+                console.log("esto es errorText ",errText)
+                //easyrtc.showError(errCode, errText)
               },
               streamName)
           }
