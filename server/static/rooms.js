@@ -15,6 +15,12 @@ function createLabelledButton(buttonLabel) {
   return button
 }
 
+function createLabelForUser(nameOfLabel) {
+  var label = document.createElement('p')
+  label.appendChild(document.createTextNode(nameOfLabel))
+  document.getElementById('videoSrcBlk').appendChild(label)
+}
+
 function addMediaStreamToDiv(divId, stream, streamName, isLocal) {
   var container = document.createElement('div')
   container.style.marginBottom = '10px'
@@ -64,11 +70,14 @@ function createLocalVideo(stream, streamName) {
     labelBlock.parentNode.parentNode.removeChild(labelBlock.parentNode)
   }
   labelBlock.appendChild(closeButton)
+  var url = window.location.href
+  var index = url.lastIndexOf("/")
+  var newUrl = url.substring(index + 1)
+  var labelUser = createLabelForUser('You are sharing in the room ' + newUrl)
 }
 
 
 function initial() {
-
   //easyrtc.joinRoom(window.location.href,()=>{},()=>{},()=>{})
   easyrtc.connect('easyrtc.multistream', loginSuccess, loginFailure)
 
@@ -113,6 +122,11 @@ function convertListToButtons(roomName, occupants, isPrimary) {
       // button.appendChild(label)
       button.setAttribute('class', 'btn-floating ocultar')
       otherClientDiv.appendChild(button)
+      var url = window.location.href
+      var index = url.lastIndexOf("/")
+      var newUrl = url.substring(index + 1)
+      var label = createLabelForUser('You are admin in the room ' + newUrl)
+      otherClientDiv.appendChild(label)
     }
   }
 }
@@ -167,7 +181,7 @@ function loginSuccess() {
           var screenShareButton = createLabelledButton('Desktop capture/share')
           screenShareButton.onclick = function () {
             var streamName = makeid()
-            console.log("esto es el estado de chrome ",event.data.chromeExtensionStatus)
+            console.log("esto es el estado de chrome ", event.data.chromeExtensionStatus)
             easyrtc.initDesktopStream(
               function (stream) {
                 createLocalVideo(stream, streamName)
@@ -179,8 +193,8 @@ function loginSuccess() {
                 easyrtc.showError(errCode, errText)
               },
               streamName)
-              $("#videoSrcBlk").css('height', '0')
-              $(this).remove()
+            $("#videoSrcBlk").css('height', '0')
+            $(this).remove()
           }
         } else {
           var screenShareButton = createLabelledButton('Desktop capture/share')
@@ -194,13 +208,13 @@ function loginSuccess() {
                 }
               },
               function (errCode, errText) {
-                console.log("esto es errorcode ",errCode)
-                console.log("esto es errorText ",errText)
+                console.log("esto es errorcode ", errCode)
+                console.log("esto es errorText ", errText)
                 //easyrtc.showError(errCode, errText)
               },
               streamName)
-              $("#videoSrcBlk").css('height', '0')
-              $(this).remove()
+            $("#videoSrcBlk").css('height', '0')
+            $(this).remove()
           }
         }
       }

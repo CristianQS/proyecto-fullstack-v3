@@ -28,7 +28,7 @@
 
 
 
-(function() {
+(function () {
     /** Create a local media stream for desktop capture.
       * This will fail if a desktop capture extension is not installed.
       * not granting permission.
@@ -48,86 +48,86 @@
       *          });
       *
       */
-     var iframeUrl =  'https://www.webrtc-experiment.com/getSourceId/';
- 
-     easyrtc.initDesktopStream= function(successCallback, failureCallback, streamName) {
-         // for Firefox:
-         // sourceId == 'firefox'
-         // screen_constraints = {...}
-         
-         
-         
-         if (!!navigator.mozGetUserMedia) {
-             easyrtc._presetMediaConstraints = {
-                 video: {
-                     mozMediaSource: 'window',
-                     mediaSource: 'window',
-                     maxWidth: 1920,
-                     maxHeight: 1080,
-                     minAspectRatio: 1.77
-                 },
-                 audio: false
-                 };
-             easyrtc.initMediaSource(successCallback, failureCallback, streamName);
-             return;
-         }
- 
-         postMessage();
- 
-         var cb = function(event) {
-             if (!event.data) return;
- 
-             if (event.data.chromeMediaSourceId) {
-                 window.removeEventListener("message", cb);
-                 if (event.data.chromeMediaSourceId === 'PermissionDeniedError') {
-                     failureCallback(easyrtc.errCodes.MEDIA_ERR, 'permission-denied');
-                 } else {
-                     easyrtc._presetMediaConstraints = {
-                         video: {
-                             mandatory: {
-                                 chromeMediaSource:'desktop',
-                                 chromeMediaSourceId: event.data.chromeMediaSourceId,
-                                 maxWidth: 1920,
-                                 maxHeight: 1080,
-                                 minAspectRatio: 1.77
-                             }
-                         },
-                         audio: false
-                     }
-                     easyrtc.initMediaSource(successCallback, failureCallback, streamName);
-                 }
-             }
- 
-             if (event.data.chromeExtensionStatus) {
-                 alert("You need one extension to capturing your desktop, install it and go sharing after")
+    var iframeUrl = 'https://www.webrtc-experiment.com/getSourceId/';
+
+    easyrtc.initDesktopStream = function (successCallback, failureCallback, streamName) {
+        // for Firefox:
+        // sourceId == 'firefox'
+        // screen_constraints = {...}
+
+
+
+        if (!!navigator.mozGetUserMedia) {
+            easyrtc._presetMediaConstraints = {
+                video: {
+                    mozMediaSource: 'window',
+                    mediaSource: 'window',
+                    maxWidth: 1920,
+                    maxHeight: 1080,
+                    minAspectRatio: 1.77
+                },
+                audio: false
+            };
+            easyrtc.initMediaSource(successCallback, failureCallback, streamName);
+            return;
+        }
+
+        postMessage();
+
+        var cb = function (event) {
+            if (!event.data) return;
+
+            if (event.data.chromeMediaSourceId) {
+                window.removeEventListener("message", cb);
+                if (event.data.chromeMediaSourceId === 'PermissionDeniedError') {
+                    failureCallback(easyrtc.errCodes.MEDIA_ERR, 'permission-denied');
+                } else {
+                    easyrtc._presetMediaConstraints = {
+                        video: {
+                            mandatory: {
+                                chromeMediaSource: 'desktop',
+                                chromeMediaSourceId: event.data.chromeMediaSourceId,
+                                maxWidth: 1920,
+                                maxHeight: 1080,
+                                minAspectRatio: 1.77
+                            }
+                        },
+                        audio: false
+                    }
+                    easyrtc.initMediaSource(successCallback, failureCallback, streamName);
+                }
+            }
+
+            if (event.data.chromeExtensionStatus) {
+                alert("You need one extension to capturing your desktop, install it and go sharing after")
                 window.location.href = 'https://chrome.google.com/webstore/detail/screen-capturing/ajhifddimkapgcifgcodmmfdlknahffk?hl=es'
-                 console.log("extension status is ", event.data.chromeExtensionStatus);  
-             }
-         };
-         easyrtc.desktopCaptureInstalled = null;
-         window.addEventListener('message', cb);
-     };
- 
- 
-     var iframe = document.createElement('iframe');
-     
-     function postMessage() {
-         if (!iframe.isLoaded) {
-             setTimeout(postMessage, 100);
-             return;
-         }
- 
-         iframe.contentWindow.postMessage({
-             captureSourceId: true
-         }, '*');
-     }
- 
-     iframe.onload = function() {
-         iframe.isLoaded = true;
-     };
- 
-     iframe.src = iframeUrl;
- 
-     iframe.style.display = 'none';
-     (document.body || document.documentElement).appendChild(iframe);
- })();
+                console.log("extension status is ", event.data.chromeExtensionStatus);
+            }
+        };
+        easyrtc.desktopCaptureInstalled = null;
+        window.addEventListener('message', cb);
+    };
+
+
+    var iframe = document.createElement('iframe');
+
+    function postMessage() {
+        if (!iframe.isLoaded) {
+            setTimeout(postMessage, 100);
+            return;
+        }
+
+        iframe.contentWindow.postMessage({
+            captureSourceId: true
+        }, '*');
+    }
+
+    iframe.onload = function () {
+        iframe.isLoaded = true;
+    };
+
+    iframe.src = iframeUrl;
+
+    iframe.style.display = 'none';
+    (document.body || document.documentElement).appendChild(iframe);
+})();
