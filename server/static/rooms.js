@@ -15,11 +15,11 @@ function createLabelledButton(buttonLabel) {
   return button
 }
 
-function createLabelForUser(nameOfLabel) {
-  var label = document.createElement('p')
-  label.appendChild(document.createTextNode(nameOfLabel))
-  document.getElementById('videoSrcBlk').appendChild(label)
-}
+// function createLabelForUser(nameOfLabel) {
+//   var label = document.createElement('p')
+//   label.appendChild(document.createTextNode(nameOfLabel))
+//   document.getElementById('videoSrcBlk').appendChild(label)
+// }
 
 function addMediaStreamToDiv(divId, stream, streamName, isLocal) {
   var container = document.createElement('div')
@@ -70,10 +70,10 @@ function createLocalVideo(stream, streamName) {
     labelBlock.parentNode.parentNode.removeChild(labelBlock.parentNode)
   }
   labelBlock.appendChild(closeButton)
-  var url = window.location.href
-  var index = url.lastIndexOf("/")
-  var newUrl = url.substring(index + 1)
-  var labelUser = createLabelForUser('You are sharing in the room ' + newUrl)
+  // var url = window.location.href
+  // var index = url.lastIndexOf("/")
+  // var newUrl = url.substring(index + 1)
+  // var labelUser = createLabelForUser('You are sharing in the room ' + newUrl)
 }
 
 
@@ -110,6 +110,7 @@ function convertListToButtons(roomName, occupants, isPrimary) {
     }
     if (admin.easyrtcid == isPrimary.easyrtcid) {
       var button = document.createElement('a')
+      //var label = createLabelForUser('You are admin in the room ' + newUrl)
       button.onclick = (function () {
         participantes.forEach(easyrtcid => {
           performCall(easyrtcid)
@@ -122,11 +123,7 @@ function convertListToButtons(roomName, occupants, isPrimary) {
       // button.appendChild(label)
       button.setAttribute('class', 'btn-floating ocultar')
       otherClientDiv.appendChild(button)
-      var url = window.location.href
-      var index = url.lastIndexOf("/")
-      var newUrl = url.substring(index + 1)
-      var label = createLabelForUser('You are admin in the room ' + newUrl)
-      otherClientDiv.appendChild(label)
+      //otherClientDiv.appendChild(label)
     }
   }
 }
