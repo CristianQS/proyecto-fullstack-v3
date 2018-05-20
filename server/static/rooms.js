@@ -183,7 +183,7 @@ function loginSuccess() {
               function (stream) {
                 createLocalVideo(stream, streamName)
                 if (otherEasyrtcid) {
-                  easyrtc.addStreamToCall(otherEasyrtcid, streamName)
+                  easyrtc.addStreamToCall(otherEasyrtcid, streamName) 
                 }
               },
               function (errCode, errText) {
